@@ -15,6 +15,7 @@ build:
 down:
     docker-compose down
 
+
 # SSH
 ssh:
     ssh root@70.34.249.99
