@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - mongo_data:/data/db
+    env_file:
+      - ./config/development.env
+  frontend:
+    image: "notes-frontend-dev"
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/src:/app/src
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  backend:
+    image: "notes-backend-dev"
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/app:rw
+      - /app/node_modules
+    depends_on:
+      - mongodb
+    env_file:
+      - ./config/development.env
+volumes:
+  mongo_data:
