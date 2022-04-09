@@ -14,8 +14,6 @@ build:
     docker-compose -f docker-compose.production.yml up -d
 down:
     docker-compose down
-
-
 # SSH
 ssh:
     ssh root@70.34.249.99
